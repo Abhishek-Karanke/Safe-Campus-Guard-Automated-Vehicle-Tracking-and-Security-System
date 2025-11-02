@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Vehicle Logs</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="{{ url_for('static',filename='dashboardStyles/dashboardAssets/vendors/mdi/css/materialdesignicons.min.css') }}">
+  <link rel="stylesheet" type="text/css"
+    href="{{ url_for('static',filename='dashboardStyles/dashboardAssets/vendors/css/vendor.bundle.base.css') }}">
+  <link rel="stylesheet" type="text/css"
+    href="{{ url_for('static',filename='dashboardStyles/dashboardAssets/css/style.css') }}">
+
+  <link rel="stylesheet" type="text/css"
+    href="{{ url_for('static',filename='dashboardStyles/dashboardAssets/images/favicon.png') }}">
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+        <a class="sidebar-brand brand-logo" href="../../index.html"><img
+            src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/images/logo.svg') }}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini" href="../../index.html"><img
+            src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/images/logo-mini.svg') }}"
+            alt="logo" /></a>
+      </div>
+      <ul class="nav">
+        <li class="nav-item profile">
+          <div class="profile-desc">
+            <div class="profile-pic">
+              <div class="count-indicator">
+                <img class="img-xs rounded-circle bg-white">
+                <span class="count bg-success"></span>
+              </div>
+              <div class="profile-name">
+                <h5 class="mb-0 font-weight-normal">{{user}}</h5>
+                <!-- <span>Gold Member</span> -->
+              </div>
+            </div>
+            <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+            <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+              aria-labelledby="profile-dropdown">
+              <a href="#" class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-dark rounded-circle">
+                    <i class="mdi mdi-settings text-primary"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-dark rounded-circle">
+                    <i class="mdi mdi-onepassword  text-info"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-dark rounded-circle">
+                    <i class="mdi mdi-calendar-today text-success"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item nav-category">
+          <span class="nav-link">Navigation</span>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/admin-dashboard">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/upload">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">Upload</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item menu-items">
+          <a class="nav-link" href="/live-stream">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">Live Stream</span>
+          </a>
+        </li> -->
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/vehicleLogs-table">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">Vehicle Logs</span>
+          </a>
+        </li>
+
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/add-visitor">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">Add Visitor</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_navbar.html -->
+      <nav class="navbar p-0 fixed-top d-flex flex-row">
+        <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
+              src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/images/logo-mini.svg') }}"
+              alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <ul class="navbar-nav w-100">
+            <li class="nav-item w-100">
+              <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                <input type="text" class="form-control" placeholder="Search Vehicle">
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown d-none d-lg-block">
+              <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
+                aria-expanded="false" href="#">Vehicle Management</a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                aria-labelledby="createbuttonDropdown">
+                <!-- <h6 class="p-3 mb-0">Projects</h6> -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item" href="/add-vehicle">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-file-outline text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1">Add Vehicle</p>
+                  </div>
+                </a>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-web text-info"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1">Delete Vehicle</p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item nav-settings d-none d-lg-block">
+              <a class="nav-link" href="#">
+                <i class="mdi mdi-view-grid"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown border-left">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown"
+                aria-expanded="false">
+                <i class="mdi mdi-email"></i>
+                <span class="count bg-success"></span>
+              </a>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                <div class="navbar-profile">
+                  <img class="img-xs rounded-circle bg-white">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name">{{user}}</p>
+                  <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                aria-labelledby="profileDropdown">
+                <h6 class="p-3 mb-0"><a class="nav-link" href="/login">
+                  <p class="preview-subject mb-1">Log out</p>
+                </a></h6>
+                <div class="dropdown-divider"></div>
+                <!-- <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-success"></i>
+                    </div>
+                  </div> -->
+                <!-- <div class="preview-item-content">
+                    <p class="preview-subject mb-1">Settings</p>
+                  </div> -->
+                <!-- </a> -->
+                <!-- <div class="dropdown-divider"></div>
+                <p class="p-3 mb-0 text-center">Advanced settings</p> -->
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+            data-toggle="offcanvas">
+            <span class="mdi mdi-format-line-spacing"></span>
+          </button>
+        </div>
+      </nav>
+
+
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title"> Vehicle Logs </h3>
+            <!-- Filter Button -->
+            <!-- <button class="btn btn-default" id="toggleFilterBtn">Show Filter</button> -->
+          </div>
+
+          <div class="row" style="display: block; position: relative;">
+            <!-- Vehicle Logs Table -->
+            <div class="col-lg-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vehicle Logs</h4>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>id</th>
+                          <th>license_number</th>
+                          <th>date</th>
+                          <th>time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for row in logs %}
+                        <tr>
+                          <td>{{ row[0] }}</td>
+                          <td>{{ row[1] }}</td>
+                          <td>{{ row[2] }}</td>
+                          <td>{{ row[3] }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filter Section (Initially hidden) -->
+            <div id="filterSection" class="col-lg-4 grid-margin stretch-card"
+              style="display: none; position: absolute; top: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.9); padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+              <form>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Filter
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <button class="btn btn-default" type="submit">Apply Filters</button>
+                    <a class="btn btn-sm btn-link pull-right" href="#">Clear Selections</a>
+                    <a class="btn btn-sm btn-link pull-right" href="#">Reset</a>
+                  </div>
+                  <div class="panel-body">
+                    <div class="panel-group" id="filter-menu" role="tablist" aria-multiselectable="true">
+                      <!-- Career Stage Filter -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <a class="panel-title accordion-toggle" role="button" data-toggle="collapse"
+                            href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Career Stage
+                          </a>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                          aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            <div class="checkbox"><label><input type="checkbox" name="career_state[]"
+                                  value="recent_graduate">Recent Graduate</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="career_state[]"
+                                  value="imposter_syndrome">Imposter Syndrome</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="career_state[]"
+                                  value="wise_old_head">Wise Old Head</label></div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Topic Filter -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                          <a class="panel-title accordion-toggle collapsed" role="button" data-toggle="collapse"
+                            href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Topic
+                          </a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                          aria-labelledby="headingTwo">
+                          <div class="panel-body">
+                            <div class="checkbox"><label><input type="checkbox" name="topic[]"
+                                  value="politics">Politics</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="topic[]"
+                                  value="religion">Religion</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="topic[]"
+                                  value="music">Music</label></div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Format Filter -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                          <a class="panel-title accordion-toggle collapsed" role="button" data-toggle="collapse"
+                            href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Format
+                          </a>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                          aria-labelledby="headingThree">
+                          <div class="panel-body">
+                            <div class="checkbox"><label><input type="checkbox" name="format[]"
+                                  value="magazine">Magazine</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="format[]"
+                                  value="website">Website</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="format[]"
+                                  value="vine">Vine</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="format[]"
+                                  value="tweet">Tweet</label></div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Status Filter -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                          <a class="panel-title accordion-toggle collapsed" role="button" data-toggle="collapse"
+                            href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Status
+                          </a>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                          aria-labelledby="headingFour">
+                          <div class="panel-body">
+                            <div class="checkbox"><label><input type="checkbox" name="status[]"
+                                  value="single">Single</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="status[]"
+                                  value="married">Married</label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="status[]"
+                                  value="its_complicated">It's complicated</label></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Script to toggle the filter visibility -->
+          <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+          <script>
+            $(document).ready(function () {
+              $('#toggleFilterBtn').click(function () {
+                var filterSection = $('#filterSection');
+                // Toggle the filter menu visibility
+                if (filterSection.is(":visible")) {
+                  filterSection.hide();  // Hide filter menu
+                  $('#toggleFilterBtn').text('Show Filter');  // Change button text to "Show Filter"
+                } else {
+                  filterSection.show();  // Show filter menu
+                  $('#toggleFilterBtn').text('Hide Filter');  // Change button text to "Hide Filter"
+                }
+              });
+            });
+          </script>
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        <div class="d-sm-block>
+              <span class=" text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+          bootstrapdash.com 2020</span>
+        </div>
+      </footer>
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <script
+    src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/vendors/js/vendor.bundle.base.js') }}"></script>
+
+  <script src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/js/off-canvas.js') }}"></script>
+  <script src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/js/hoverable-collapse.js') }}"></script>
+  <script src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/js/misc.js') }}"></script>
+  <script src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/js/settings.js') }}"></script>
+  <script src="{{ url_for('static',filename='dashboardStyles/dashboardAssets/js/todolist.js') }}"></script>
+</body>
+
+</html>

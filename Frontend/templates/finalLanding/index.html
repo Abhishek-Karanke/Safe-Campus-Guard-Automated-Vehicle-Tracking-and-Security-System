@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- <link rel= "stylesheet" type= "text/css" href= "homePageStyles/home.css"> -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='homePageStyles/home.css') }}">
+
+
+  </head>
+  <body>
+    <main>
+      <div class="big-wrapper dark">
+        <img src="{{ url_for('static',filename='homePageStyles/homeAssets/img/shape.png') }}" alt="" class="shape" />
+
+        <header>
+          <div class="container">
+            <div class="logo">
+              <img src="{{ url_for('static',filename='homePageStyles/homeAssets/img/logo.png') }}" alt="Logo" />
+              <h3>Campus  Guard</h3>
+            </div>
+
+            <div class="links">
+              <ul>
+                <li><a href="#features">About us</a></li>
+                <li><a href="#contact">Contact us</a></li>
+                <!-- <li><a href="#">Testimonials</a></li> -->
+                <li><a href="/login" class="btn">Sign in</a></li>
+              </ul>
+            </div>
+
+            <div class="overlay"></div>
+
+            <div class="hamburger-menu">
+              <div class="bar"></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="showcase-area">
+          <div class="container">
+            <div class="left">
+              <div class="big-title">
+                <h2>Welcome to Campus Guard,</h2>
+                <h5>Securing Your Campus, Simplifying Access.</h5>
+              </div>
+              <p class="text">
+                Our innovative platform leverages cutting-edge technology for seamless 
+                Automatic Number Plate Recognition (ANPR) and vehicle tracking. 
+                Enhance campus security while streamlining entry management.
+              </p>
+              <div class="cta">
+                <a href="#" class="btn">Get started</a>
+              </div>
+            </div>
+
+            <div class="right">
+              <lottie-player src="{{ url_for('static',filename='homePageStyles/homeAssets/car-number-plate.json') }}" background="transparent"  speed="0.7"  style="width: 600px; height: 500px;" loop autoplay></lottie-player>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-area">
+          <div class="container">
+            <button class="toggle-btn">
+              <i class="far fa-moon"></i>
+              <i class="far fa-sun"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <lottie-player src="car-number-plate.json" background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player> -->
+    </main>
+
+    
+    <!-- features section -->
+<section class="pt-6 pb-7 big-wrapper dark" id="features">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6 mx-auto text-center">
+              <h2 class="feature-title">Campus Guard: Comprehensive Security & Management</h2>
+              <p class="text-muted lead">Enhancing campus safety with automated number plate recognition, real-time alerts, and efficient log management.</p>
+          </div>
+      </div>
+      <div class="row mt-5">
+          <div class="col-md-10 mx-auto">
+              <div class="row feature-boxes">
+                  <div class="col-md-6 box">
+                      <div class="icon-box box-primary">
+                          <div class="icon-box-inner">
+                              <span data-feather="camera" width="35" height="35"></span>
+                          </div>
+                      </div>
+                      <h5 class="feature-item">Accurate ANPR Technology</h5>
+                      <p class="text-muted">Leverage advanced AI to detect and recognize license plates with high precision, ensuring secure campus entry and exit.</p>
+                  </div>
+                  <div class="col-md-6 box">
+                      <div class="icon-box box-success">
+                          <div class="icon-box-inner">
+                              <span data-feather="bell" width="35" height="35"></span>
+                          </div>
+                      </div>
+                      <h5 class="feature-item">Real-Time Alerts</h5>
+                      <p class="text-muted">Get instant notifications for unauthorized vehicles, suspicious activities, or rule violations, enabling proactive security measures.</p>
+                  </div>
+                  <div class="col-md-6 box">
+                      <div class="icon-box box-danger">
+                          <div class="icon-box-inner">
+                              <span data-feather="file-text" width="35" height="35"></span>
+                          </div>
+                      </div>
+                      <h5 class="feature-item">Comprehensive Log Management</h5>
+                      <p class="text-muted">Maintain detailed logs of vehicle movements, timestamps, and alerts, ensuring an efficient audit trail for campus security.</p>
+                  </div>
+                  <div class="col-md-6 box">
+                      <div class="icon-box box-info">
+                          <div class="icon-box-inner">
+                              <span data-feather="cloud" width="35" height="35"></span>
+                          </div>
+                      </div>
+                      <h5 class="feature-item">Cloud Integration</h5>
+                      <p class="text-muted">Access and manage data from anywhere with secure cloud-based storage, making monitoring convenient and scalable.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-6 big-wrapper dark" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto text-center">
+        <h2 class="feature-title">Get in Touch</h2>
+        <p class="text-muted lead">We'd love to hear from you! Whether you have a question about features, pricing, or anything else, our team is ready to answer all your questions.</p>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-8 mx-auto">
+        <form action="/send-message" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" class="form-control" placeholder="Write your message here" required></textarea>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!--footer-->
+<footer class="py-6 big-wrapper dark">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-5 mr-auto">
+              <h5 class="feature-item">About Campus Guard</h5>
+              <p class="text-muted">Campus Guard is a cutting-edge web application designed for efficient campus security management through ANPR, real-time alerts, and comprehensive log maintenance. Ensuring safety and convenience for all.</p>
+              <ul class="list-inline social social-sm">
+                  <li class="list-inline-item">
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#"><i class="fa fa-linkedin"></i></a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                  </li>
+              </ul>
+          </div>
+          <div class="col-sm-2">
+              <h5 class="feature-item">Legal</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Service</a></li>
+                  <li><a href="#">Refund Policy</a></li>
+              </ul>
+          </div>
+          <div class="col-sm-2">
+              <h5 class="feature-item">Partners</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#">Collaboration</a></li>
+                  <li><a href="#">Affiliates</a></li>
+              </ul>
+          </div>
+          <div class="col-sm-2">
+              <h5 class="feature-item">Support</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#">Help Center</a></li>
+                  <li><a href="#">Contact Us</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="row mt-5">
+          <div class="col-12 text-muted text-center small-xl">
+              &copy; 2024 Campus Guard - All Rights Reserved
+          </div>
+      </div>
+  </div>
+</footer>
+
+    <!-- JavaScript Files -->
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="{{ url_for('static',filename='homePageStyles/homeAssets/app.js') }}"></script>
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+    
+  </body>
+</html>
